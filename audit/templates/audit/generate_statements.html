@@ -1,0 +1,27 @@
+{% extends 'audit/base.html' %}
+
+{% block content %}
+<h2>Generate Financial Statement</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="statement_date">Statement Date</label>
+        <input type="date" class="form-control" id="statement_date" name="statement_date" required>
+    </div>
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Generate Statement</button>
+</form>
+
+{% if statement %}
+<div class="mt-4">
+    <h3>Financial Statement for {{ statement.statement_date }}</h3>
+<ul>
+    <li>Total Income: {{ statement.total_income }}</li>
+    <li>Total Expense: {{ statement.total_expense }}</li>
+    <li>Net Income: {{ statement.net_income }}</li>
+</ul>
+
+</div>
+
+{% endif %}
+{% endblock %}
