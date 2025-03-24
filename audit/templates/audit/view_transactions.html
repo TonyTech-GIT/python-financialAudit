@@ -18,6 +18,12 @@
             <td>{{ transaction.description }}</td>
             <td>{{ transaction.amount }}</td>
             <td>{{ transaction.transaction_type }}</td>
+            <td>
+                <form method="post" action="{% url 'delete_transaction' transaction.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

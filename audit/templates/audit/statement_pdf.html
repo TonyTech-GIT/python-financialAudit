@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Financial Statement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Financial Statement for {{ statement.statement_date }}</h2>
+        <ul>
+            <li><strong>Total Income:</strong> {{ statement.total_income }}</li>
+            <li><strong>Total Expense:</strong> {{ statement.total_expense }}</li>
+            <li><strong>Net Income:</strong> {{ statement.net_income }}</li>
+        </ul>
+    </div>
+</body>
+</html>

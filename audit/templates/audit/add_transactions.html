@@ -23,7 +23,18 @@
             <option value="expense">Expense</option>
         </select>
     </div>
-    {{ form.as_p }}
+    <!-- {{ form.as_p }} -->
+    {% if errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for field, error_list in errors.items %}
+                    {% for error in error_list %}
+                        <li>{{ field }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
     <button type="submit" class="btn btn-primary">Add Transaction</button>
 </form>
 {% endblock %}

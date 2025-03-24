@@ -1,10 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from rest_framework import viewsets
 from .models import Transaction, FinancialStatement
 from .serializers import TransactionSerializer, FinancialStatementSerializer
 from .forms import TransactionForm, FinancialStatementForm
 from django.db.models import Sum
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+# from xhtml2pdf import pisa
+# from .models import FinancialStatement
 
 # Create your views here.
 
@@ -18,6 +22,7 @@ class FinancialStatementViewSet(viewsets.ModelViewSet):
 
 def home(request):
     return render(request, 'audit/home.html')
+
 
 def add_transaction(request):
     if request.method == 'POST':
@@ -46,3 +51,23 @@ def generate_statement(request):
     else:
         form = FinancialStatementForm()
     return render(request, 'audit/generate_statements.html', {'form': form})
+
+# def generate_pdf(html):
+#     response = HttpResponse(content_type='application/pdf')
+#     response['Content-Disposition'] = 'attachment; filename="financial_statement.pdf"'
+#     pisa_status = pisa.CreatePDF(html, dest=response)
+#     if pisa_status.err:
+#         return HttpResponse('We had some errors <pre>' + html + '</pre>')
+#     return response
+
+# def download_statement(request, statement_id):
+#     statement = FinancialStatement.objects.get(id=statement_id)
+#     html = render_to_string('audit/statement_pdf.html', {'statement': statement})
+#     return generate_pdf(html)
+
+def delete_transaction(request, transaction_id):
+    transaction = get_object_or_404(Transaction, id=transaction_id)
+    if request.method == 'POST':
+        transaction.delete()
+        return redirect('view_transactions')
+    return render(request, 'audit/view_transactions.html', {'transactions': Transaction.objects.all()})
