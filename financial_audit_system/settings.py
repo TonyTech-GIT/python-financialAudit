@@ -35,7 +35,6 @@ SECRET_KEY = os.getenv("SECRET_KEY", "your-default-secret-key")
 DEBUG = os.getenv("ENV") != "production"
 
 ALLOWED_HOSTS = ["financialAuditSystem.up.railway.app", "127.0.0.1"]
-# ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1").split(",")
 
 # CSRF_TRUSTED_ORIGINS = [f"https://{os.getenv('RAILWAY_DOMAIN')}"]
 CSRF_TRUSTED_ORIGINS = ["financialAuditSystem.up.railway.app"]
@@ -90,12 +89,6 @@ WSGI_APPLICATION = 'financial_audit_system.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 if os.getenv("ENV") == "production":
     DATABASES = {
@@ -106,12 +99,8 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'financial_audit_db',
-            'USER': 'postgres',
-            'PASSWORD': os.getenv('DB_PASSWORD', 'yourpassword'),
-            'HOST': 'localhost',
-            'PORT': '5432',
-            # 'NAME': BASE_DIR / "db.sqlite3",
+            'NAME': BASE_DIR / "db.sqlite3",
+           
         }
     }
 
