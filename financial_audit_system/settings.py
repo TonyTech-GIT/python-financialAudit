@@ -28,16 +28,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-5^&0e_c%w2pg2x=b5&)v0glw=u55a9v+wqg8p95++p6wpm2y@d'
-SECRET_KEY = [os.getenv("SECRET_KEY")]
+SECRET_KEY = os.getenv("SECRET_KEY", "your-default-secret-key")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("ENV") != "production"
 
-# ALLOWED_HOSTS = ["financial-audit-system.herokuapp.com"]
-# ALLOWED_HOSTS = [os.getenv("RAILWAY_DOMAIN", "127.0.0.1")]
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1").split(",")
+ALLOWED_HOSTS = ["financialAuditSystem.up.railway.app", "127.0.0.1"]
+# ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1").split(",")
 
 # CSRF_TRUSTED_ORIGINS = [f"https://{os.getenv('RAILWAY_DOMAIN')}"]
+CSRF_TRUSTED_ORIGINS = ["financialAuditSystem.up.railway.app"]
 
 
 # Application definition
@@ -93,11 +94,6 @@ WSGI_APPLICATION = 'financial_audit_system.wsgi.application'
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': BASE_DIR / 'db.sqlite3',
-        
-#         # 'USER': 'root',
-#         # 'PASSWORD': 'root',
-#         # 'HOST': 'localhost',
-#         # 'PORT': '3306'
 #     }
 # }
 
@@ -155,8 +151,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
