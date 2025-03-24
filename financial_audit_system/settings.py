@@ -37,8 +37,7 @@ DEBUG = os.getenv("ENV") != "production"
 ALLOWED_HOSTS = ["financialAuditSystem.up.railway.app", "127.0.0.1"]
 
 # CSRF_TRUSTED_ORIGINS = [f"https://{os.getenv('RAILWAY_DOMAIN')}"]
-CSRF_TRUSTED_ORIGINS = ["financialAuditSystem.up.railway.app"]
-
+CSRF_TRUSTED_ORIGINS = ["https://financialAuditSystem.up.railway.app"]
 
 # Application definition
 
