@@ -27,13 +27,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5^&0e_c%w2pg2x=b5&)v0glw=u55a9v+wqg8p95++p6wpm2y@d'
+# SECRET_KEY = 'django-insecure-5^&0e_c%w2pg2x=b5&)v0glw=u55a9v+wqg8p95++p6wpm2y@d'
+SECRET_KEY = [os.getenv("SECRET_KEY")]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("ENV") != "production"
 
 # ALLOWED_HOSTS = ["financial-audit-system.herokuapp.com"]
-ALLOWED_HOSTS = [os.getenv("RAILWAY_DOMAIN", "127.0.0.1")]
+# ALLOWED_HOSTS = [os.getenv("RAILWAY_DOMAIN", "127.0.0.1")]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1").split(",")
+
+CSRF_TRUSTED_ORIGINS = [f"https://{os.getenv('RAILWAY_DOMAIN')}"]
 
 
 # Application definition
@@ -105,7 +109,12 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / "db.sqlite3",
+            'NAME': 'financial_audit_db',
+            'USER': 'postgres',
+            'PASSWORD': os.getenv('DB_PASSWORD', 'yourpassword'),
+            'HOST': 'localhost',
+            'PORT': '5432',
+            # 'NAME': BASE_DIR / "db.sqlite3",
         }
     }
 
