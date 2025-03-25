@@ -1,12 +1,9 @@
 from django.http import HttpResponse
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_http_methods
 
-@require_GET
+@require_http_methods(["GET", "HEAD"])
 def health_check(request):
-    """Bypass all middleware checks"""
-    return HttpResponse(
-        "OK",
-        content_type="text/plain",
-        status=200,
-        headers={"Cache-Control": "no-store"}
-    )
+    """Handle both GET and HEAD requests"""
+    response = HttpResponse("OK", content_type="text/plain", status=200)
+    response.headers["Cache-Control"] = "no-store"
+    return response

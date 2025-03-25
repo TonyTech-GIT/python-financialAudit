@@ -20,7 +20,8 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from audit.views import TransactionViewSet, FinancialStatementViewSet
-from . import healthcheck
+# from . import healthcheck
+from .healthcheck import health_check
 
 router = DefaultRouter()
 router.register(r'transactions', TransactionViewSet)
@@ -30,8 +31,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('', include('audit.urls')),  # Include audit app URLs
-path('health/', healthcheck.health_check, name='health-check'),]
-
+    path('health/', health_check, name='health-check'),
+# path('health/', healthcheck.health_check, name='health-check'),]
+]
 # urlpatterns = [
 #     path('admin/', admin.site.urls),
 # ]

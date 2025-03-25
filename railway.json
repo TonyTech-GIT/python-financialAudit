@@ -2,5 +2,12 @@
     "build": {
       "builder": "DOCKERFILE",
       "dockerfilePath": "Dockerfile"
-    }
+    },
+
+    "healthcheck": {
+    "path": "/health/",
+    "method": "HEAD",
+    "interval": 15,
+    "timeout": 5
+  }
   }

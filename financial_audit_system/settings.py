@@ -14,6 +14,8 @@ from pathlib import Path
 import dj_database_url
 import os
 
+from django.conf import settings
+
 import environ
 
 env = environ.Env()
@@ -34,7 +36,8 @@ SECRET_KEY = os.getenv("SECRET_KEY", "your-default-secret-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("ENV") != "production"
 
-ALLOWED_HOSTS = ["financialAuditSystem.up.railway.app", "127.0.0.1"]
+# ALLOWED_HOSTS = ["financialAuditSystem.up.railway.app", "127.0.0.1"]
+
 
 # CSRF_TRUSTED_ORIGINS = [f"https://{os.getenv('RAILWAY_DOMAIN')}"]
 CSRF_TRUSTED_ORIGINS = ["https://financialAuditSystem.up.railway.app"]
@@ -63,6 +66,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Health check modifications (AFTER MIDDLEWARE definition)
+if os.getenv('HEALTH_CHECK', '').lower() == 'true':
+    ALLOWED_HOSTS = ['*']
+    MIDDLEWARE.remove('django.middleware.csrf.CsrfViewMiddleware')
 
 ROOT_URLCONF = 'financial_audit_system.urls'
 
