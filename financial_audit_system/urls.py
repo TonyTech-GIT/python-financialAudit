@@ -30,8 +30,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('', include('audit.urls')),  # Include audit app URLs
-    path('health/', healthcheck.health_check),
-]
+path('health/', healthcheck.health_check, name='health-check'),]
 
 # urlpatterns = [
 #     path('admin/', admin.site.urls),
