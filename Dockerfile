@@ -33,11 +33,10 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
 
 # Run the application with proper startup sequence
 CMD ["sh", "-c", "\
-    wait-for-it --timeout=30 localhost:$PORT -- \
+    python manage.py migrate && \
     gunicorn financial_audit_system.wsgi:application \
     --bind 0.0.0.0:$PORT \
     --workers 2 \
     --timeout 120 \
     --access-logfile - \
-    --error-logfile - \
-    --env HEALTH_CHECK=$HEALTH_CHECK"]
+    --preload"]
