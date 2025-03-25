@@ -1,0 +1,6 @@
+Starting Container
+[2025-03-25 13:54:40 +0000] [2] [INFO] Starting gunicorn 23.0.0
+[2025-03-25 13:54:40 +0000] [2] [INFO] Listening at: http://0.0.0.0:8000 (2)
+[2025-03-25 13:54:40 +0000] [2] [INFO] Using worker: sync
+[2025-03-25 13:54:40 +0000] [3] [INFO] Booting worker with pid: 3
+[2025-03-25 13:54:40 +0000] [4] [INFO] Booting worker with pid: 4

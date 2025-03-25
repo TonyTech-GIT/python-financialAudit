@@ -1,9 +1,8 @@
 from django.http import HttpResponse
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_GET
+from django.views.decorators.csrf import csrf_exempt
 
-@require_http_methods(["GET", "HEAD"])
+@csrf_exempt
+@require_GET
 def health_check(request):
-    """Handle both GET and HEAD requests"""
-    response = HttpResponse("OK", content_type="text/plain", status=200)
-    response.headers["Cache-Control"] = "no-store"
-    return response
+    return HttpResponse("OK", content_type="text/plain", status=200)
