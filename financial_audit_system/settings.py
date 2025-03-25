@@ -155,13 +155,27 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ] if os.path.exists(os.path.join(BASE_DIR, 'static')) else []
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 # Whitenoise settings
 # MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
+
+# Add this at the BOTTOM of settings.py (after all other settings):
+if not DEBUG:
+     # Disable Django's static file handling in production
+    DISABLE_STATIC_HANDLING = True
+    
+    # Ensure Whitenoise handles static files
+    WHITENOISE_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    WHITENOISE_USE_FINDERS = True
+    WHITENOISE_MANIFEST_STRICT = False
+    
+    # Add to ALLOWED_HOSTS
+    ALLOWED_HOSTS = ['*']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

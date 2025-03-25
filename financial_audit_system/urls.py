@@ -22,6 +22,8 @@ from rest_framework.routers import DefaultRouter
 from audit.views import TransactionViewSet, FinancialStatementViewSet
 # from . import healthcheck
 from .healthcheck import health_check
+from django.conf import settings
+from django.conf.urls.static import static  # Add this import
 
 router = DefaultRouter()
 router.register(r'transactions', TransactionViewSet)
@@ -34,6 +36,8 @@ urlpatterns = [
     path('health/', health_check, name='health-check'),
 # path('health/', healthcheck.health_check, name='health-check'),]
 ]
+# This replaces staticfiles_urlpatterns and works in all environments
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 # urlpatterns = [
 #     path('admin/', admin.site.urls),
 # ]

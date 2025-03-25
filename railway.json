@@ -1,7 +1,9 @@
 {
     "build": {
       "builder": "DOCKERFILE",
-      "dockerfilePath": "Dockerfile"
+      "dockerfilePath": "Dockerfile",
+      "staticPath": "staticfiles",
+    "staticUrl": "/static"
     },
 
     "healthcheck": {
