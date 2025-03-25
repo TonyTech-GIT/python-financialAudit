@@ -40,7 +40,7 @@ DEBUG = os.getenv("ENV") != "production"
 
 
 # CSRF_TRUSTED_ORIGINS = [f"https://{os.getenv('RAILWAY_DOMAIN')}"]
-CSRF_TRUSTED_ORIGINS = ["https://financialAuditSystem.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = ["https://financial-audit-system.up.railway.app"]
 
 # Application definition
 
