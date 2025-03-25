@@ -1,10 +1,8 @@
-# Dockerfile
 FROM python:3.9-slim
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PORT=8000
+    PYTHONDONTWRITEBYTECODE=1
 
 # Create and set working directory
 WORKDIR /app
@@ -26,8 +24,5 @@ COPY . .
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
-# Expose the port
-EXPOSE $PORT
-
 # Run the application
-CMD ["gunicorn", "financial_audit_system.wsgi:application", "--bind", "0.0.0.0:$PORT"]
+CMD ["gunicorn", "financial_audit_system.wsgi:application", "--bind", "0.0.0.0:8000"]
