@@ -25,4 +25,4 @@ COPY . .
 RUN python manage.py collectstatic --noinput
 
 # Run the application
-CMD ["gunicorn", "financial_audit_system.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD gunicorn financial_audit_system.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 2 --timeout 120
