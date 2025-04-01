@@ -4,28 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Audit System</title>
+    
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            padding: 0.75rem 1rem;
+        }
+        footer {
+            background: #f8f9fa;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{% url 'home' %}">Audit System</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'add_transactions' %}">Add Transaction</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'view_transactions' %}">View Transactions</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'generate_statements' %}">Generate Statement</a>
-                </li>
-            </ul>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand font-weight-bold" href="{% url 'home' %}">Audit System</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'add_transactions' %}">Add Transaction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_transactions' %}">View Transactions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'generate_statements' %}">Generate Statement</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
+
+    <!-- Content -->
     <div class="container mt-4">
         {% block content %}
         {% endblock %}
     </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2024 Financial Audit System | All Rights Reserved
+    </footer>
+
+    <!-- Bootstrap JS and jQuery (for Navbar Toggle) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

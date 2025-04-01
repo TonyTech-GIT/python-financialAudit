@@ -1,26 +1,54 @@
 {% extends 'audit/base.html' %}
 
 {% block content %}
-<h2>Generate Financial Statement</h2>
-<form method="post">
-    {% csrf_token %}
-    <div class="form-group">
-        <label for="statement_date">Statement Date</label>
-        <input type="date" class="form-control" id="statement_date" name="statement_date" required>
-    </div>
-    <!-- {{ form.as_p }} -->
-    <button type="submit" class="btn btn-primary">Generate Statement</button>
-</form>
+<div class="container">
+    <h2 class="text-center mb-4">Generate Financial Statement</h2>
 
-{% if statement %}
-<div class="mt-4">
-    <h3>Financial Statement for {{ statement.statement_date }}</h3>
-<ul>
-    <li>Total Income: {{ statement.total_income }}</li>
-    <li>Total Expense: {{ statement.total_expense }}</li>
-    <li>Net Income: {{ statement.net_income }}</li>
-</ul>
+    <div class="card shadow-sm p-4">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="statement_date"><i class="fas fa-calendar-alt"></i> Statement Date</label>
+                <input type="date" class="form-control" id="statement_date" name="statement_date" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+                <i class="fas fa-file-alt"></i> Generate Statement
+            </button>
+        </form>
+    </div>
+
+    {% if statement %}
+    <div class="mt-5">
+        <h3 class="text-center text-primary">Financial Statement for {{ statement.statement_date }}</h3>
+        
+        <div class="table-responsive">
+            <table class="table table-bordered text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Total Income</th>
+                        <th>Total Expense</th>
+                        <th>Net Income</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-success"><strong>₦{{ statement.total_income }}</strong></td>
+                        <td class="text-danger"><strong>₦{{ statement.total_expense }}</strong></td>
+                        <td>
+                            {% if statement.net_income >= 0 %}
+                                <span class="badge badge-success">₦{{ statement.net_income }}</span>
+                            {% else %}
+                                <span class="badge badge-danger">₦{{ statement.net_income }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
 </div>
 
-{% endif %}
+<!-- FontAwesome for Icons -->
+<script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
 {% endblock %}
