@@ -1,5 +1,10 @@
 FROM python:3.9-slim
 
+
+# Add this near the top
+ENV GUNICORN_CMD_ARGS="--workers=2 --timeout=120 --keep-alive=5 --access-logfile=- --error-logfile=-"
+
+
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -42,10 +47,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
 CMD ["sh", "-c", "\
     python manage.py migrate && \
     gunicorn financial_audit_system.wsgi:application \
-    --bind 0.0.0.0:$PORT \
-    --workers 2 \
-    --timeout 120 \
-    --graceful-timeout 30 \
-    --keep-alive 5 \
-    --access-logfile - \
-    --error-logfile -"]
+    --bind 0.0.0.0:$PORT"]
