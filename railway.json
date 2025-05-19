@@ -8,8 +8,9 @@
 
     "healthcheck": {
     "path": "/health/",
-    "initialDelay": 30,
-    "interval": 15,
-    "timeout": 10
+    "method": "GET",
+    "interval": 30,
+    "timeout": 10,
+    "initialDelay": 30
   }
   }

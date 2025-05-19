@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -86,6 +87,14 @@ DATABASES = {
         ssl_require=os.getenv('ENV') == 'production'
     )
 }
+
+# Add PostgreSQL-specific options
+if 'postgresql' in DATABASES['default'].get('ENGINE', ''):
+    DATABASES['default']['OPTIONS'] = {
+        'connect_timeout': 5,
+        'sslmode': 'require' if os.getenv('ENV') == 'production' else 'prefer'
+    }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
