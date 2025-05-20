@@ -81,27 +81,11 @@ WSGI_APPLICATION = 'financial_audit_system.wsgi.application'
 
 # Database
 DATABASES = {
-    # 'default': dj_database_url.config(
-    #     default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
-    #     conn_max_age=600,
-    #     ssl_require=os.getenv('ENV') == 'production'
-    # )
-
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('PGDATABASE'),
-        'USER': os.getenv('PGUSER'),
-        'PASSWORD': os.getenv('PGPASSWORD'),
-        'HOST': os.getenv('PGHOST'),
-        'PORT': os.getenv('PGPORT'),
-        'OPTIONS': {
-            'connect_timeout': 10,  # Increased from default 5 seconds
-            'keepalives': 1,
-            'keepalives_idle': 30,
-            'keepalives_interval': 10,
-            'keepalives_count': 5
-        },
-    }
+    'default': dj_database_url.config(
+        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
+        conn_max_age=600,
+        ssl_require=os.getenv('ENV') == 'production'
+    )
 }
 
 # Add PostgreSQL-specific options
