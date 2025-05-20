@@ -42,14 +42,24 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 # Health check modifications
 if os.getenv('HEALTH_CHECK', '').lower() == 'true':
     ALLOWED_HOSTS = ['*']
-    if 'django.middleware.csrf.CsrfViewMiddleware' in MIDDLEWARE:
-        MIDDLEWARE.remove('django.middleware.csrf.CsrfViewMiddleware')
+    MIDDLEWARE = [
+        'django.middleware.security.SecurityMiddleware',
+        'whitenoise.middleware.WhiteNoiseMiddleware',
+    ]
 
 ROOT_URLCONF = 'financial_audit_system.urls'
 
