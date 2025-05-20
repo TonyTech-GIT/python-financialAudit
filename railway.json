@@ -16,5 +16,13 @@
         }
       ]
     }
+  },
+  
+  "healthcheck": {
+    "path": "/health/",
+    "initialDelay": 60,
+    "timeout": 30,
+    "interval": 60
   }
+
 }

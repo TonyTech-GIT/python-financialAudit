@@ -45,6 +45,9 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
 
 # Application startup
 CMD ["sh", "-c", "\
+    while ! python manage.py check --database default; do sleep 5; done && \
     python manage.py migrate && \
     gunicorn financial_audit_system.wsgi:application \
-    --bind 0.0.0.0:$PORT"]
+    --bind 0.0.0.0:$PORT \
+    --workers 2 \
+    --timeout 120"]
