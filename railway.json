@@ -20,7 +20,7 @@
   
   "healthcheck": {
     "path": "/health/",
-    "initialDelay": 60,
+    "initialDelay": 90,
     "timeout": 30,
     "interval": 60
   }
