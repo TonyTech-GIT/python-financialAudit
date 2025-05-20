@@ -36,7 +36,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('', include('audit.urls')),  # Include audit app URLs
 #    path('/health/', health_check),
-path('/health/', healthcheck.health_check, name='health-check'),
+path('health/', healthcheck.health_check, name='health-check'),
 ]
 # This replaces staticfiles_urlpatterns and works in all environments
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
