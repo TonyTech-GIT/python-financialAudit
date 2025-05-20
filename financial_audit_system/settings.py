@@ -21,7 +21,8 @@ DEBUG = os.getenv("ENV") != "production"
 ALLOWED_HOSTS = [
     "python-financialaudit-production.up.railway.app",
     "127.0.0.1",
-    "localhost"
+    "localhost",
+    "0.0.0.0"  # Important for Railway healthchecks
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -44,7 +45,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -53,13 +53,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Health check modifications
-if os.getenv('HEALTH_CHECK', '').lower() == 'true':
-    ALLOWED_HOSTS = ['*']
-    MIDDLEWARE = [
-        'django.middleware.security.SecurityMiddleware',
-        'whitenoise.middleware.WhiteNoiseMiddleware',
-    ]
 
 ROOT_URLCONF = 'financial_audit_system.urls'
 
@@ -135,4 +128,26 @@ STORAGES = {
 
 
 
+
+# Add this at the bottom of settings.py
+# This ensures healthchecks work even if the database is down
+HEALTHCHECK_ENABLED = os.getenv('HEALTHCHECK_ENABLED', 'false').lower() == 'true'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
+
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

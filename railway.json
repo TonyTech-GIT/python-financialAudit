@@ -1,7 +1,6 @@
 {
   "build": {
-    "builder": "DOCKERFILE",
-    "dockerfilePath": "Dockerfile"
+    "builder": "NIXPACKS"
   },
   "deploy": {
     "restartPolicy": {
@@ -17,12 +16,16 @@
       ]
     }
   },
-  
   "healthcheck": {
     "path": "/health/",
-    "initialDelay": 90,
-    "timeout": 30,
-    "interval": 60
+    "initialDelay": 30,
+    "timeout": 10,
+    "interval": 60,
+    "maxRetries": 3
+  },
+  "env": {
+    "HEALTHCHECK_ENABLED": "true",
+    "DISABLE_COLLECTSTATIC": "1",
+    "PYTHON_VERSION": "3.10"
   }
-
 }
