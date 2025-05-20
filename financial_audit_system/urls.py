@@ -22,7 +22,8 @@ from rest_framework.routers import DefaultRouter
 from audit.views import TransactionViewSet, FinancialStatementViewSet
 # from . import healthcheck
 # from .healthcheck import health_check
-from . import healthcheck
+# from . import healthcheck
+from django.http import HttpResponse
 from django.conf import settings
 from django.conf.urls.static import static  # Add this import
 
@@ -34,7 +35,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('', include('audit.urls')),  # Include audit app URLs
-    path('health/', healthcheck.health_check ),
+   path('health/', lambda r: HttpResponse("OK")),
 # path('health/', healthcheck.health_check, name='health-check'),]
 ]
 # This replaces staticfiles_urlpatterns and works in all environments
