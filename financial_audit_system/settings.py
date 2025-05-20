@@ -18,7 +18,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY", "your-default-secret-key")
 DEBUG = os.getenv("ENV") != "production"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "python-financialaudit-production.up.railway.app",
+    "127.0.0.1",
+    "localhost",
+    "0.0.0.0"  # Important for Railway healthchecks
+    "*"  # Allow all hosts for local development
+]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://python-financialaudit-production.up.railway.app"
