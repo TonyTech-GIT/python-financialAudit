@@ -17,7 +17,7 @@
     }
   },
   "healthcheck": {
-    "path": "health/",
+    "path": "/health",
     "initialDelay": 30,
     "timeout": 10,
     "interval": 60,

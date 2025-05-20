@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn financial_audit_system.wsgi --workers 2 --threads 4 --bind 0.0.0.0:8000 --timeout 120
+web: gunicorn financial_audit_system.wsgi --bind 0.0.0.0:$PORT
