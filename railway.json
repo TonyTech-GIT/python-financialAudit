@@ -4,28 +4,15 @@
   },
   "deploy": {
     "restartPolicy": {
-      "type": "Always",
-      "maximumRetryCount": 3
-    },
-    "network": {
-      "ports": [
-        {
-          "port": 8000,
-          "protocol": "tcp"
-        }
-      ]
+      "type": "ALWAYS",
+      "maxRetries": 5
     }
   },
   "healthcheck": {
-    "path": "/health",
+    "path": "/health/",
     "initialDelay": 30,
     "timeout": 10,
-    "interval": 60,
+    "interval": 15,
     "maxRetries": 3
-  },
-  "env": {
-    "HEALTHCHECK_ENABLED": "true",
-    "DISABLE_COLLECTSTATIC": "1",
-    "PYTHON_VERSION": "3.10"
   }
 }
