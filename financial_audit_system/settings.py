@@ -24,13 +24,7 @@ DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 IS_RAILWAY = 'RAILWAY_ENVIRONMENT' in os.environ
 IS_PRODUCTION = os.getenv('ENV') == 'production' or IS_RAILWAY
 
-ALLOWED_HOSTS = [
-    
-    "127.0.0.1",
-    "localhost",
-    "0.0.0.0",
-    os.getenv("ALLOWED_HOSTS", "localhost").split(","),
-]
+ALLOWED_HOSTS = ['python-financialaudit.onrender.com', 'localhost', '127.0.0.1']
 
 # Add wildcard for development
 if DEBUG:
@@ -38,7 +32,8 @@ if DEBUG:
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.railway.app",
-    "https://python-financialaudit-production.up.railway.app"
+    "https://python-financialaudit-production.up.railway.app",
+    "https://python-financialaudit.onrender.com"
 ]
 
 # Application definition
