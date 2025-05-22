@@ -81,7 +81,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'financial_audit_system.wsgi.application'
 
-# Database
+# Configure the default database
 DATABASES = {
     'default': dj_database_url.config(
         default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
@@ -90,17 +90,21 @@ DATABASES = {
     )
 }
 
-# PostgreSQL-specific optimizations
-if DATABASES['default'].get('ENGINE', '').endswith('psycopg2'):
+# Apply PostgreSQL-specific optimizations only if using PostgreSQL
+default_db_engine = DATABASES['default'].get('ENGINE', '')
+if 'postgresql' in default_db_engine or 'psycopg2' in default_db_engine:
     DATABASES['default']['OPTIONS'] = {
         'connect_timeout': 10,
         'keepalives': 1,
         'keepalives_idle': 30,
         'keepalives_interval': 10,
         'keepalives_count': 5,
-        'sslmode': 'require' if IS_PRODUCTION else 'prefer'
     }
 
+    if IS_PRODUCTION:
+        DATABASES['default']['OPTIONS']['sslmode'] = 'require'
+
+        
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
