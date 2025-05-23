@@ -24,11 +24,11 @@ IS_RAILWAY = 'RAILWAY_ENVIRONMENT' in os.environ
 IS_PRODUCTION = env('ENV', default='development') == 'production' or IS_RAILWAY
 
 # Allowed Hosts
-ALLOWED_HOSTS = [
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[
     'python-financialaudit.onrender.com',
     'localhost',
     '127.0.0.1',
-]
+])
 
 if DEBUG:
     ALLOWED_HOSTS += ['*']
